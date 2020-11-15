@@ -9,7 +9,54 @@ let nivel = 1;          // nível de dificuldade
 let jogadaCpu = 1;   // indica a jogada da cpu
 let quemComeca = 1;
 
-function jogar(p) { // p = posição 
+
+function cpuJoga() {
+    if (jogando) {
+        let linha, coluna;
+        if (nivel == 1) {
+            do {
+                linha = Math.round(Math.random() * 2);  //sorteio de linha
+                coluna = Math.round(Math.random() * 2); // sorteio de coluna
+            } while (jogo[linha][coluna] != "");          // Enquanto linha e coluna for vazia ele  vai sorteando
+            jogo[linha][coluna] = "O";
+        } else if (nivel == 2) {
+            //nivel 2
+        }
+        verifica = verificaVitoria();
+        if (verifica != "") {
+            alert(`${verifica} venceu!`);
+            jogando = false;
+        }
+        atualizaTabuleiro();
+        quemJoga = 0;
+    }
+}
+function verificaVitoria() {
+    let linha, coluna;
+    //LINHAS
+    for (linha = 0; linha < 3; linha++) {
+        if ((jogo[linha][0] == jogo[linha][1] && jogo[linha][1] == jogo[linha][2])) {
+            return jogo[linha][0];
+        }
+    }
+    //COLUNAS
+    for (coluna = 0; coluna < 3; coluna++) {
+
+    }
+
+    //DIAGONAIS
+    if ((jogo[0][0] == jogo[1][1] && jogo[1][1] == jogo[2][2])) {
+        return jogo[0][0];
+    }
+    if ((jogo[0][2] == jogo[1][1] && jogo[1][1] == jogo[2][0])) {
+        return jogo[0][02];
+    }
+    return "";  // Caso nenhuma dessas opções não  retorne nada, ele  retorna vazio
+
+
+}
+
+function jogar(p) { // p = posição // jogador
 
     if ((jogando) && (quemJoga == 0)) {
         switch (p) {
@@ -68,25 +115,32 @@ function jogar(p) { // p = posição
                 }
                 break;
         }
-        atualizaTabuleiro();
+        if (quemJoga == 1) {
+            atualizaTabuleiro();
+            verifica = verificaVitoria();
+            if (verifica != "") {
+                alert(`${verifica} venceu!`);
+                jogando = false;
+            }
+        } cpuJoga();
     }
-    
+
 }
 
-function atualizaTabuleiro(){  // vai ser  chamada após uma, do jogador ou cpu
-    for(let linha = 0 ;linha <3; linha++){
-        for(let coluna = 0; coluna<3; coluna++){
-            if(jogo[linha][coluna]=="X"){
-                tabuleiro[linha][coluna].innerHTML ="X";
-                tabuleiro[linha][coluna].style.cursor="default";
-            }else if(jogo[linha][coluna]=="O"){
-                tabuleiro[linha][coluna].innerHTML ="O";
-                tabuleiro[linha][coluna].style.cursor="default";
-            }else{
-                tabuleiro[linha][coluna].innerHTML ="";
-                tabuleiro[linha][coluna].style.cursor="pointer";
-            }   
-        }   
+function atualizaTabuleiro() {  // vai ser  chamada após uma, do jogador ou cpu
+    for (let linha = 0; linha < 3; linha++) {
+        for (let coluna = 0; coluna < 3; coluna++) {
+            if (jogo[linha][coluna] == "X") {
+                tabuleiro[linha][coluna].innerHTML = "X";
+                tabuleiro[linha][coluna].style.cursor = "default";
+            } else if (jogo[linha][coluna] == "O") {
+                tabuleiro[linha][coluna].innerHTML = "O";
+                tabuleiro[linha][coluna].style.cursor = "default";
+            } else {
+                tabuleiro[linha][coluna].innerHTML = "";
+                tabuleiro[linha][coluna].style.cursor = "pointer";
+            }
+        }
     }
 
 }
@@ -99,10 +153,10 @@ function inicia() {
         ["", "", ""],
         ["", "", ""]
     ];
-    tabuleiro=[
-        [document.getElementById("p1"),document.getElementById("p2"),document.getElementById("p3")],
-        [document.getElementById("p4"),document.getElementById("p5"),document.getElementById("p6")],
-        [document.getElementById("p7"),document.getElementById("p8"),document.getElementById("p9")],
+    tabuleiro = [
+        [document.getElementById("p1"), document.getElementById("p2"), document.getElementById("p3")],
+        [document.getElementById("p4"), document.getElementById("p5"), document.getElementById("p6")],
+        [document.getElementById("p7"), document.getElementById("p8"), document.getElementById("p9")],
     ]
 
 }
