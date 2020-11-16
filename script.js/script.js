@@ -5,7 +5,7 @@ let tabuleiro = [];  // visual
 let quemJoga = 0;   // vai indicar de quem é a vez, 0=jogador,  1=cpu
 let verifica;       // vai verificar se houve  vencedor ou não
 let jogando = true;  // vai indicar se o jogo está  rolando ou não, começa em verdadeiro
-let nivel = 1;          // nível de dificuldade
+let nivel = 2;          // nível de dificuldade
 let jogadaCpu = 1;   // indica a jogada da cpu
 let quemComeca = 1;
 
@@ -19,9 +19,36 @@ function cpuJoga() {
                 coluna = Math.round(Math.random() * 2); // sorteio de coluna
             } while (jogo[linha][coluna] != "");          // Enquanto linha e coluna for vazia ele  vai sorteando
             jogo[linha][coluna] = "O";
+
         } else if (nivel == 2) {
-            //nivel 2
-        }
+            //ATAQUE  -> JOGADAS LINHA 1
+            if((jogo[0][0] =="O")&&([0][1] =="O")&&(jogo[0][2]=="")){
+                jogo[0][2] ="O";
+            }else if((jogo[0][0] =="O")&&([0][2] =="O")&&(jogo[0][1]=="")){
+                jogo[0][1] ="O";
+            }else if((jogo[0][1] =="O")&&([0][2] =="O")&&(jogo[0][0]=="")){
+                jogo[0][0] ="O";
+            }else
+            //JOGADAS LINHA2
+            if((jogo[1][0] =="O")&&([1][1] =="O")&&(jogo[1][2]=="")){
+                jogo[1][2] ="O";
+            }else if((jogo[1][0] =="O")&&([1][2] =="O")&&(jogo[1][1]=="")){
+                jogo[1][1] ="O";
+            }else if((jogo[1][1] =="O")&&([1][2] =="O")&&(jogo[1][0]=="")){
+                jogo[1][0] ="O";
+            }else
+            //JOGADAS LINHA 3
+            if((jogo[2][0] =="O")&&([2][1] =="O")&&(jogo[2][2]=="")){
+                jogo[2][2] ="O";
+            }else if((jogo[2][0] =="O")&&([2][2] =="O")&&(jogo[2][1]=="")){
+                jogo[2][1] ="O";
+            }else if((jogo[2][1] =="O")&&([2][2] =="O")&&(jogo[2][0]=="")){
+                jogo[2][0] ="O";
+            }
+                
+            
+            
+            
         verifica = verificaVitoria();
         if (verifica != "") {
             alert(`${verifica} venceu!`);
